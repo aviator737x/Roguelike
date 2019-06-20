@@ -34,8 +34,8 @@ class Environment:
     # random mob creation here
     def before_update(self):
         rand_number = rnd.randint(1, 50)
-        if rand_number == 1:
-            self.confuse_player()
+        # if rand_number == 1:
+            # self.confuse_player()
         rand_number = rnd.randint(1, 4)
         if rand_number == 1:
             rand_strategy = rnd.randint(0, 2)
@@ -48,7 +48,7 @@ class Environment:
         new_map = [[set() for _ in range(len(self.map[i]))] for i in range(len(self.map))]
         for mob in self.mobs:
             new_x, new_y = mob.get_desired_position(self.map, (self.player.x, self.player.y))
-            new_map[new_x][new_y].add(mob)
+            new_map[new_y][new_x].add(mob)
         new_x, new_y = self.player.get_desired_position(self.map, input_symbol)
         new_map[new_y][new_x].add(self.player)
         resolve_collisions = True
@@ -68,7 +68,9 @@ class Environment:
 
                         if not loosers or len(fighters) > 1:
                             resolve_collisions = True
-                            fighters.clear()
+                            for fighter in fighters:
+                                new_map[fighter.y][fighter.x].add(fighter)
+                            new_map[row][column].clear()
 
         for row in range(len(new_map)):
             for column in range(len(new_map[0])):

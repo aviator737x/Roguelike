@@ -10,7 +10,7 @@ class Character:
         self.y = y
 
     # TODO: implement battle
-    # None if nobody wins
+    # Empty set if nobody wins
     @staticmethod
     def battle(players):
-        return None
+        return set()

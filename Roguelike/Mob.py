@@ -11,40 +11,40 @@ class Strategy:
 
 class Aggressive(Strategy):
     @staticmethod
-    def get_desired_position(y, x, map, yp, xp):
+    def get_desired_position(x, y, map, xp, yp):
         if xp <= x and abs(yp - y) <= x - xp:
-            if map[x - 1][y] == '.':
+            if map[y][x - 1] == b'.':
                 return x - 1, y
-            if yp < y and map[x][y - 1] == '.':
+            if yp < y and map[y - 1][x] == b'.':
                 return x, y - 1
-            if yp >= y and map[x][y + 1] == '.':
+            if yp >= y and map[y + 1][x] == b'.':
                 return x, y + 1
             else:
                 return x, y
         if xp > x and abs(yp - y) <= x - xp:
-            if map[x + 1][y] == '.':
+            if map[y][x + 1] == b'.':
                 return x + 1, y
-            if yp < y and map[x][y - 1] == '.':
+            if yp < y and map[y - 1][x] == b'.':
                 return x, y - 1
-            if yp >= y and map[x][y + 1] == '.':
+            if yp >= y and map[y + 1][x] == b'.':
                 return x, y + 1
             else:
                 return x, y
         if xp <= x and abs(yp - y) > x - xp:
-            if yp < y and map[x][y - 1] == '.':
+            if yp < y and map[y - 1][x] == b'.':
                 return x, y - 1
-            if yp >= y and map[x][y + 1] == '.':
+            if yp >= y and map[y + 1][x] == b'.':
                 return x, y + 1
-            if map[x - 1][y] == '.':
+            if map[y][x - 1] == b'.':
                 return x - 1, y
             else:
                 return x, y
         if xp > x and abs(yp - y) > x - xp:
-            if yp < y and map[x][y - 1] == '.':
+            if yp < y and map[y - 1][x] == b'.':
                 return x, y - 1
-            if yp >= y and map[x][y + 1] == '.':
+            if yp >= y and map[y + 1][x] == b'.':
                 return x, y + 1
-            if map[x + 1][y] == '.':
+            if map[y][x + 1] == b'.':
                 return x + 1, y
             else:
                 return x, y
@@ -52,40 +52,40 @@ class Aggressive(Strategy):
 
 class Cowardly(Strategy):
     @staticmethod
-    def get_desired_position(y, x, map, yp, xp):
+    def get_desired_position(x, y, map, xp, yp):
         if xp <= x and abs(yp - y) <= x - xp:
-            if map[x + 1][y] == '.':
+            if map[y][x + 1] == b'.':
                 return x + 1, y
-            if yp < y and map[x][y + 1] == '.':
+            if yp < y and map[y + 1][x] == b'.':
                 return x, y + 1
-            if yp >= y and map[x][y - 1] == '.':
+            if yp >= y and map[y - 1][x] == b'.':
                 return x, y - 1
             else:
                 return x, y
         if xp > x and abs(yp - y) <= x - xp:
-            if map[x - 1][y] == '.':
+            if map[y][x - 1] == b'.':
                 return x - 1, y
-            if yp < y and map[x][y + 1] == '.':
+            if yp < y and map[y + 1][x] == b'.':
                 return x, y + 1
-            if yp >= y and map[x][y - 1] == '.':
+            if yp >= y and map[y - 1][x] == b'.':
                 return x, y - 1
             else:
                 return x, y
         if xp <= x and abs(yp - y) > x - xp:
-            if yp < y and map[x][y + 1] == '.':
+            if yp < y and map[y + 1][x] == b'.':
                 return x, y + 1
-            if yp >= y and map[x][y - 1] == '.':
+            if yp >= y and map[y - 1][x] == b'.':
                 return x, y - 1
-            if map[x + 1][y] == '.':
+            if map[y][x + 1] == b'.':
                 return x + 1, y
             else:
                 return x, y
         if xp > x and abs(yp - y) > x - xp:
-            if yp < y and map[x][y + 1] == '.':
+            if yp < y and map[y + 1][x] == b'.':
                 return x, y + 1
-            if yp >= y and map[x][y - 1] == '.':
+            if yp >= y and map[y - 1][x] == b'.':
                 return x, y - 1
-            if map[x - 1][y] == '.':
+            if map[y][x - 1] == b'.':
                 return x - 1, y
             else:
                 return x, y
@@ -93,7 +93,7 @@ class Cowardly(Strategy):
 
 class Passive(Strategy):
     @staticmethod
-    def get_desired_position(y, x, map, yp, xp):
+    def get_desired_position(x, y, map, xp, yp):
         return x, y
 
 
@@ -101,7 +101,7 @@ class Mob(Character):
     def __init__(self, strategy):
         Character.__init__(self)
         self.symbol = symbol_for_strategy[strategy]
-        self.array_symbol = bytes(symbol_for_strategy[strategy], encoding = 'utf-8')
+        self.array_symbol = bytes(symbol_for_strategy[strategy], encoding='utf-8')
         if strategy == 0:
             self.strategy = Aggressive
         elif strategy == 1:
@@ -111,4 +111,3 @@ class Mob(Character):
 
     def get_desired_position(self, map, player_coords):
         return self.strategy.get_desired_position(self.x, self.y, map, player_coords[0], player_coords[1])
-
