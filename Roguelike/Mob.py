@@ -11,7 +11,7 @@ class Strategy:
 
 class Aggressive(Strategy):
     @staticmethod
-    def get_desired_position(x, y, map, xp, yp):
+    def get_desired_position(y, x, map, yp, xp):
         if xp <= x and abs(yp - y) <= x - xp:
             if map[x - 1][y] == '.':
                 return x - 1, y
@@ -52,7 +52,7 @@ class Aggressive(Strategy):
 
 class Cowardly(Strategy):
     @staticmethod
-    def get_desired_position(x, y, map, xp, yp):
+    def get_desired_position(y, x, map, yp, xp):
         if xp <= x and abs(yp - y) <= x - xp:
             if map[x + 1][y] == '.':
                 return x + 1, y
@@ -93,7 +93,7 @@ class Cowardly(Strategy):
 
 class Passive(Strategy):
     @staticmethod
-    def get_desired_position(x, y, map, xp, yp):
+    def get_desired_position(y, x, map, yp, xp):
         return x, y
 
 
@@ -101,7 +101,7 @@ class Mob(Character):
     def __init__(self, strategy):
         Character.__init__(self)
         self.symbol = symbol_for_strategy[strategy]
-        self.array_symbol = 'b' + symbol_for_strategy[strategy]
+        self.array_symbol = bytes(symbol_for_strategy[strategy], encoding = 'utf-8')
         if strategy == 0:
             self.strategy = Aggressive
         elif strategy == 1:

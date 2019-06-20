@@ -41,6 +41,7 @@ class Environment:
             rand_strategy = rnd.randint(0, 2)
             mob = Mob(rand_strategy)
             self.position_character(mob)
+            self.mobs.add(mob)
 
     def update(self, input_symbol):
         self.before_update()
