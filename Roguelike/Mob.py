@@ -111,3 +111,4 @@ class Mob(Character):
 
     def get_desired_position(self, map, player_coords):
         return self.strategy.get_desired_position(self.x, self.y, map, player_coords[0], player_coords[1])
+

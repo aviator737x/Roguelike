@@ -1,3 +1,4 @@
+from RogueConstants import start_health, start_attack
 from Character import Character
 from asciimatics.screen import Screen
 
@@ -5,6 +6,8 @@ from asciimatics.screen import Screen
 class Player(Character):
     def __init__(self):
         super().__init__()
+        self.health = start_health * 2
+        self.attack = start_attack * 2
         self.symbol = '@'
         self.array_symbol = b'@'
 
