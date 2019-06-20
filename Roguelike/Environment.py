@@ -2,6 +2,7 @@ import numpy as np
 import random as rnd
 
 from Player import *
+from Mob import *
 from ConfusionDecorator import *
 
 
@@ -35,12 +36,17 @@ class Environment:
         rand_number = rnd.randint(1, 50)
         if rand_number == 1:
             self.confuse_player()
+        rand_number = rnd.randint(1, 4)
+        if rand_number == 1:
+            rand_strategy = rnd.randint(0, 2)
+            mob = Mob(rand_strategy)
+            self.position_character(mob)
 
     def update(self, input_symbol):
         self.before_update()
         new_map = [[set() for _ in range(len(self.map[i]))] for i in range(len(self.map))]
         for mob in self.mobs:
-            new_x, new_y = mob.get_desired_position(self.map)
+            new_x, new_y = mob.get_desired_position(self.map, (self.player.x, self.player.y))
             new_map[new_x][new_y].add(mob)
         new_x, new_y = self.player.get_desired_position(self.map, input_symbol)
         new_map[new_y][new_x].add(self.player)
