@@ -10,6 +10,7 @@ class Environment:
     def __init__(self, game_map):
         rnd.seed()
         self.map = game_map
+        self.drawable = self.map
         self.player = Player()
         self.symbols_on_map = {
             b'.': '.',
@@ -43,13 +44,13 @@ class Environment:
             self.position_character(mob)
             self.mobs.add(mob)
 
-    def update(self, input_symbol):
+    def update(self, direction):
         self.before_update()
         new_map = [[set() for _ in range(len(self.map[i]))] for i in range(len(self.map))]
         for mob in self.mobs:
             new_x, new_y = mob.get_desired_position(self.map, (self.player.x, self.player.y))
             new_map[new_y][new_x].add(mob)
-        new_x, new_y = self.player.get_desired_position(self.map, input_symbol)
+        new_x, new_y = self.player.get_desired_position(self.map, direction)
         new_map[new_y][new_x].add(self.player)
         resolve_collisions = True
         while resolve_collisions:
