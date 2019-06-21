@@ -3,11 +3,11 @@ import asciimatics.event as event
 import time
 import codecs
 import os
-from Command.CheckBackpack import *
-from Command.TakeOfCommand import *
-from Command.WearCommand import *
-from Command.MovingCommand import *
-from Command.ExitCommand import *
+from CheckBackpack import *
+from TakeOfCommand import *
+from WearCommand import *
+from MovingCommand import *
+from ExitCommand import *
 
 
 class InputHandler:

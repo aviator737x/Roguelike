@@ -1,4 +1,4 @@
-from MapObjects.Character.Character import *
+from Character import *
 
 
 class Cell:
