@@ -11,11 +11,19 @@ from Command.ExitCommand import *
 
 
 class InputHandler:
+    """
+    Class for handling input keys and printing current window
+    """
     def __init__(self, environment):
         self.environment = environment
         Screen.wrapper(self.run)
 
     def print_map(self, screen):
+        """
+        print current environment window
+        :param screen: Screen to print symbols on
+        :return: None
+        """
         window = self.environment.window.window
         x = 0
         y = 0

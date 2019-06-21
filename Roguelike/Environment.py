@@ -35,85 +35,93 @@ class Environment:
             cells = self.map.cells
             self.window = self.map
             self.mobs = set()
+            counter = 0
             for row in range(len(map_grid)):
                 for column in range(len(map_grid[0])):
+                    counter += 1
                     cell = cells[row][column]
                     line = file.readline()
-                    if line == '#':
+                    if line == '#\n':
                         cell.is_wall = True
                         cell.free_to_move = False
                         cell.is_empty = False
                         continue
-                    if line == '.':
+                    if line == '.\n':
                         continue
-                    if line == '(':
+                    if line == '(\n':
                         inventory = UpgradeAttack()
                         cell.set_object(inventory)
                         continue
-                    if line == ')':
+                    if line == ')\n':
                         inventory = UpgradeHealth()
                         cell.set_object(inventory)
                         continue
-                    if line == '?':
+                    if line == '?\n':
                         inventory = UpgradeBoth()
                         cell.set_object(inventory)
                         continue
-                    if line == '@':
+                    if line == '@\n':
                         self.player = Player()
                         character = self.player
-                    elif line == '%':
+                    elif line == '%\n':
                         character = Mob(0)
                         self.mobs.add(character)
-                    elif line == '*':
+                    elif line == '*\n':
                         character = Mob(1)
                         self.mobs.add(character)
+                    elif line == '\n':
+                        continue
                     else:
                         character = Mob(2)
                         self.mobs.add(character)
                     character.set_position(column, row)
-                    character.health = int(file.readline())
-                    character.attack = int(file.readline())
+                    line = file.readline()
+                    character.health = int(line[:-1])
+                    character.attack = int(file.readline()[:-1])
                     file.readline()
                     line = file.readline()
-                    if line == "Attack updater (w/s)":
-                        num = int(file.readline())
+                    if line == "Attack updater (w/s)\n":
+                        num = int(file.readline()[:-1])
                         character.backpack["Attack updater (w/s)"] = []
                         for _ in range(num):
                             character.backpack["Attack updater (w/s)"].append(UpgradeAttack())
                         line = file.readline()
-                    if line == "Health upgrader (e/d)":
-                        num = int(file.readline())
+                    if line == "Health upgrader (e/d)\n":
+                        num = int(file.readline()[:-1])
                         character.backpack["Health upgrader (e/d)"] = []
                         for _ in range(num):
                             character.backpack["Health upgrader (e/d)"].append(UpgradeAttack())
                         line = file.readline()
-                    if line == "A/H upgrader (r/f)":
-                        num = int(file.readline())
+                    if line == "A/H upgrader (r/f)\n":
+                        num = int(file.readline()[:-1])
                         character.backpack["A/H upgrader (r/f)"] = []
                         for _ in range(num):
                             character.backpack["A/H upgrader (r/f)"].append(UpgradeAttack())
                         line = file.readline()
-                    if line == "Attack updater (w/s)":
-                        num = int(file.readline())
+                    line = file.readline()
+                    if line == "Attack updater (w/s)\n":
+                        num = int(file.readline()[:-1])
                         character.worn["Attack updater (w/s)"] = []
                         for _ in range(num):
                             character.worn["Attack updater (w/s)"].append(UpgradeAttack())
                         line = file.readline()
-                    if line == "Health upgrader (e/d)":
-                        num = int(file.readline())
+                    if line == "Health upgrader (e/d)\n":
+                        num = int(file.readline()[:-1])
                         character.worn["Health upgrader (e/d)"] = []
                         for _ in range(num):
                             character.worn["Health upgrader (e/d)"].append(UpgradeAttack())
                         line = file.readline()
-                    if line == "A/H upgrader (r/f)":
-                        num = int(file.readline())
+                    if line == "A/H upgrader (r/f)\n":
+                        num = int(file.readline()[:-1])
                         character.worn["A/H upgrader (r/f)"] = []
                         for _ in range(num):
                             character.worn["A/H upgrader (r/f)"].append(UpgradeAttack())
                         line = file.readline()
                     if isinstance(character, Player):
-                        character.wins_on_level = int(line)
-                        character.level = int(file.readline())
+                        character.wins_on_level = int(line[:-1])
+                        line = file.readline()
+                        character.level = int(line[:-1])
+        self.map.draw()
 
     def check_uncheck_backpack(self):
         if self.window == self.map:
@@ -261,4 +269,4 @@ class Environment:
                         file.write(str(map_object.wins_on_level) + "\n")
                         file.write(str(map_object.level) + "\n")
                     else:
-                        file.write('.')
+                        file.write('\n')

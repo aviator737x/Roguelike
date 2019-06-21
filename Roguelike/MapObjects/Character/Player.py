@@ -27,3 +27,4 @@ class Player(Character):
         self.level += 1
         self.health *= 1.1
         self.attack *= 1.1
+        self.wins_on_level = 0
