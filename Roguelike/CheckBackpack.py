@@ -1,4 +1,4 @@
-from Command.Command import *
+from Command import *
 
 
 class CheckBackpackCommand(Command):

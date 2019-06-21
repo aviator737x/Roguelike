@@ -1,10 +1,10 @@
-from MapObjects.Character.Mob import *
-from MapObjects.Character.ConfusionDecorator import *
-from MapObjects.Inventory.UpgradeAttack import *
-from MapObjects.Inventory.UpgradeHealth import *
-from MapObjects.Inventory.UpgradeBoth import *
-from Window.GameMap import *
-from Window.BackpackWindow import *
+from Mob import *
+from ConfusionDecorator import *
+from UpgradeAttack import *
+from UpgradeHealth import *
+from UpgradeBoth import *
+from GameMap import *
+from BackpackWindow import *
 
 
 class Environment:
